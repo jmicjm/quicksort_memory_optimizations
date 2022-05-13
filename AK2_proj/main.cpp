@@ -11,6 +11,7 @@
 #include "partitionNoPivotCopy.h"
 
 #include "qsortIterative.h"
+#include "qsortIterativeNoRedundancy.h"
 #include "qsortRecursive.h"
 
 
@@ -32,7 +33,7 @@ void test(T data, qsort_f qsort, std::string_view description)
 	qsort(data);
 
 	auto e = std::chrono::steady_clock::now();
-	std::cout << description << ": stack - " << (sp - max_sp) << " heap - " << max_heap << "\n";
+	std::cout << description << ":\nstack - " << (sp - max_sp) << " heap - " << max_heap << "\n";
 	std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(e - b).count() << " ms\n";
 	std::cout << "sorted?: " << std::is_sorted(data.begin(), data.end()) << "\n\n";
 }
@@ -53,7 +54,8 @@ int main()
 	test(vec, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive, no pivot copy");
 	test(vec, qsortIterative<std::string, partition>, "iterative");
 	test(vec, qsortIterative<std::string, partitionNoPivotCopy>, "iterative, no pivot copy");
-
+	test(vec, qsortIterativeNoRedundancy<std::string, partition>, "iterative no redundancy");
+	test(vec, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy, no pivot copy");
 
 	return 0;
 }

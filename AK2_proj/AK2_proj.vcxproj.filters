@@ -35,6 +35,9 @@
     <ClInclude Include="qsortRecursive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qsortIterativeNoRedundancy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="stackPTR.asm">
