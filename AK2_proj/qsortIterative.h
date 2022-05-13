@@ -8,7 +8,8 @@
 template<typename T, T* (*partition)(std::span<T>)>
 void qsortIterative(std::span<T> data)
 {
-	std::vector<std::span<T>> ranges = { data };
+	std::vector<std::span<T>> ranges;
+	ranges.push_back(data);
 
 	while (ranges.size() > 0)
 	{

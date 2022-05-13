@@ -7,7 +7,9 @@
 template<typename T, T* (*partition)(std::span<T>)>
 void qsortIterativeNoRedundancy(std::span<T> data)
 {
-	std::vector<T*> ranges = { &*data.begin(), &*data.end() };
+	std::vector<T*> ranges;
+	ranges.push_back(&*data.begin());
+	ranges.push_back(&*data.end());
 
 	while (ranges.size() > 1)
 	{
@@ -27,7 +29,7 @@ void qsortIterativeNoRedundancy(std::span<T> data)
 			ranges.push_back(top);
 		}
 
-		max_heap = std::max(max_heap, (int64_t)(ranges.capacity() * sizeof(T*)));
+		max_heap = std::max(max_heap, static_cast<int64_t>(ranges.capacity() * sizeof(T*)));
 		max_sp = std::min(max_sp, stackPTR());
 	}
 }
