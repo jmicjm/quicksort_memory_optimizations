@@ -17,7 +17,7 @@
 #include "qsortRecursive.h"
 
 template<typename T>
-using data_sample_t = std::vector<std::vector<T>>;
+using data_samples = std::vector<std::vector<T>>;
 
 int rval(int min, int max)
 {
@@ -26,7 +26,7 @@ int rval(int min, int max)
 }
 
 template<typename T, typename qsort_f>
-void test(data_sample_t<T> data, qsort_f qsort, std::string_view description)
+void test(data_samples<T> samples, qsort_f qsort, std::string_view description)
 {
 	auto sum_sp = 0;
 	auto sum_heap = 0;
@@ -34,7 +34,7 @@ void test(data_sample_t<T> data, qsort_f qsort, std::string_view description)
 	auto sorted = true;
 	auto time = 0;
 
-	for (auto& d : data)
+	for (auto& sample : samples)
 	{
 		auto sp = stackPTR();
 		max_sp = sp;
@@ -42,25 +42,25 @@ void test(data_sample_t<T> data, qsort_f qsort, std::string_view description)
 		qsort_heap = 0;
 
 		auto b = std::chrono::steady_clock::now();
-		qsort(d);
+		qsort(sample);
 		auto e = std::chrono::steady_clock::now();
 		time += std::chrono::duration_cast<std::chrono::milliseconds>(e - b).count();
 
-		sorted &= std::is_sorted(d.begin(), d.end());
+		sorted &= std::is_sorted(sample.begin(), sample.end());
 
 		sum_sp += (sp - max_sp);
 		sum_heap += max_heap;
 	}
 
-	std::cout << description << ":\nstack - " << sum_sp / data.size() << " heap - " << sum_heap / data.size() << "\n";
-	std::cout << time / data.size() << " ms\n";
+	std::cout << description << ":\nstack - " << sum_sp / samples.size() << " heap - " << sum_heap / samples.size() << "\n";
+	std::cout << time / samples.size() << " ms\n";
 	std::cout << "sorted?: " << sorted << "\n\n";
 }
 
 
 int main()
 {
-	data_sample_t<std::string> data_samples(16);
+	data_samples<std::string> data_samples(16);
 
 	for (auto& sample : data_samples)
 	{
