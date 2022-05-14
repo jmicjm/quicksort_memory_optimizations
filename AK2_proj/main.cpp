@@ -14,7 +14,8 @@
 #include "qsortIterativeNoRedundancy.h"
 #include "qsortRecursive.h"
 
-
+template<typename T>
+using data_sample_t = std::vector<std::vector<T>>;
 
 int rval(int min, int max)
 {
@@ -23,40 +24,58 @@ int rval(int min, int max)
 }
 
 template<typename T, typename qsort_f>
-void test(T data, qsort_f qsort, std::string_view description)
+void test(data_sample_t<T> data, qsort_f qsort, std::string_view description)
 {
-	auto sp = stackPTR();
-	max_sp = stackPTR();
-	max_heap = 0;
-	qsort_heap = 0;
-	auto b = std::chrono::steady_clock::now();
+	auto sum_sp = 0;
+	auto sum_heap = 0;
 
-	qsort(data);
+	auto sorted = true;
+	auto time = 0;
 
-	auto e = std::chrono::steady_clock::now();
-	std::cout << description << ":\nstack - " << (sp - max_sp) << " heap - " << max_heap << "\n";
-	std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(e - b).count() << " ms\n";
-	std::cout << "sorted?: " << std::is_sorted(data.begin(), data.end()) << "\n\n";
+	for (auto& d : data)
+	{
+		auto sp = stackPTR();
+		max_sp = sp;
+		max_heap = 0;
+		qsort_heap = 0;
+
+		auto b = std::chrono::steady_clock::now();
+		qsort(d);
+		auto e = std::chrono::steady_clock::now();
+		time += std::chrono::duration_cast<std::chrono::milliseconds>(e - b).count();
+
+		sorted &= std::is_sorted(d.begin(), d.end());
+
+		sum_sp += (sp - max_sp);
+		sum_heap += max_heap;
+	}
+
+	std::cout << description << ":\nstack - " << sum_sp / data.size() << " heap - " << sum_heap / data.size() << "\n";
+	std::cout << time / data.size() << " ms\n";
+	std::cout << "sorted?: " << sorted << "\n\n";
 }
 
 
 int main()
 {
-	std::vector<std::string> vec;
+	data_sample_t<std::string> data_samples(16);
 
-	for (int i = 0; i < 1e6; i++)
+	for (auto& sample : data_samples)
 	{
-		std::string str(rval(1, 16), ' ');
-		for (auto& ch : str) ch = rval('a', 'z');
+		for (int i = 0; i < 1e6; i++)
+		{
+			std::string str(rval(1, 16), ' ');
+			for (auto& ch : str) ch = rval('a', 'z');
 
-		vec.push_back(str);
+			sample.push_back(str);
+		}
 	}
-	test(vec, qsortRecursive<std::string, partition>, "recursive");
-	test(vec, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive, no pivot copy");
-	test(vec, qsortIterative<std::string, partition>, "iterative");
-	test(vec, qsortIterative<std::string, partitionNoPivotCopy>, "iterative, no pivot copy");
-	test(vec, qsortIterativeNoRedundancy<std::string, partition>, "iterative no redundancy");
-	test(vec, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy, no pivot copy");
+	test(data_samples, qsortRecursive<std::string, partition>, "recursive");
+	test(data_samples, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive, no pivot copy");
+	test(data_samples, qsortIterative<std::string, partition>, "iterative");
+	test(data_samples, qsortIterative<std::string, partitionNoPivotCopy>, "iterative, no pivot copy");
+	test(data_samples, qsortIterativeNoRedundancy<std::string, partition>, "iterative no redundancy");
+	test(data_samples, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy, no pivot copy");
 
 	return 0;
 }
