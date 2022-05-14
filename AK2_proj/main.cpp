@@ -8,7 +8,9 @@
 #include <chrono>
 
 #include "partition.h"
+#include "inlinePartition.h"
 #include "partitionNoPivotCopy.h"
+#include "inlinePartitionNoPivotCopy.h"
 
 #include "qsortIterative.h"
 #include "qsortIterativeNoRedundancy.h"
@@ -71,11 +73,22 @@ int main()
 		}
 	}
 	test(data_samples, qsortRecursive<std::string, partition>, "recursive");
-	test(data_samples, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive, no pivot copy");
+	test(data_samples, qsortRecursive<std::string, inlinePartition>, "recursive,\ninline partition");
+
+	test(data_samples, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive,\nno pivot copy");
+	test(data_samples, qsortRecursive<std::string, inlinePartitionNoPivotCopy>, "recursive,\ninline partition,\nno pivot copy");
+
 	test(data_samples, qsortIterative<std::string, partition>, "iterative");
-	test(data_samples, qsortIterative<std::string, partitionNoPivotCopy>, "iterative, no pivot copy");
+	test(data_samples, qsortIterative<std::string, inlinePartition>, "iterative,\ninline partition");
+
+	test(data_samples, qsortIterative<std::string, partitionNoPivotCopy>, "iterative,\nno pivot copy");
+	test(data_samples, qsortIterative<std::string, inlinePartitionNoPivotCopy>, "iterative,\ninline partition,\nno pivot copy");
+
 	test(data_samples, qsortIterativeNoRedundancy<std::string, partition>, "iterative no redundancy");
-	test(data_samples, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy, no pivot copy");
+	test(data_samples, qsortIterativeNoRedundancy<std::string, inlinePartition>, "iterative no redundancy,\ninline partition");
+
+	test(data_samples, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy,\nno pivot copy");
+	test(data_samples, qsortIterativeNoRedundancy<std::string, inlinePartitionNoPivotCopy>, "iterative no redundancy,\ninline partition,\nno pivot copy");
 
 	return 0;
 }

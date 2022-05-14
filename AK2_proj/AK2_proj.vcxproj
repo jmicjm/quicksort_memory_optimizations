@@ -144,6 +144,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inlinePartition.h" />
+    <ClInclude Include="inlinePartitionNoPivotCopy.h" />
     <ClInclude Include="memory_measurement.h" />
     <ClInclude Include="partition.h" />
     <ClInclude Include="partitionNoPivotCopy.h" />

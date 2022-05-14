@@ -38,6 +38,12 @@
     <ClInclude Include="qsortIterativeNoRedundancy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inlinePartitionNoPivotCopy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlinePartition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="stackPTR.asm">
