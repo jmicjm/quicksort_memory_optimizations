@@ -28,6 +28,7 @@ void test(T data, qsort_f qsort, std::string_view description)
 	auto sp = stackPTR();
 	max_sp = stackPTR();
 	max_heap = 0;
+	qsort_heap = 0;
 	auto b = std::chrono::steady_clock::now();
 
 	qsort(data);

@@ -24,7 +24,8 @@ void qsortIterative(std::span<T> data)
 		if (left.size() >= 2) ranges.push_back(left);
 		if (right.size() >= 2) ranges.push_back(right);
 
-		max_heap = std::max(max_heap, (int64_t)(ranges.capacity() * sizeof(std::span<T>)));
+		qsort_heap = static_cast<int64_t>(ranges.capacity() * sizeof(std::span<T>));
+		max_heap = std::max(max_heap, qsort_heap);
 		max_sp = std::min(max_sp, stackPTR());
 	}
 }

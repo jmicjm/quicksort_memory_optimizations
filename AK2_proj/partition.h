@@ -2,7 +2,6 @@
 #include <span>
 #include "memory_measurement.h"
 
-
 template<typename T>
 T* partition(std::span<T> data)
 {
@@ -19,7 +18,9 @@ T* partition(std::span<T> data)
 		std::swap(data[i], data[j]);
 	}
 
-	max_heap = std::max(max_heap, (int64_t)(pivot.capacity() * sizeof(char)));
+	constexpr static auto T_capacity = T{}.capacity();
+	auto partition_heap = pivot.capacity() > T_capacity ? static_cast<int64_t>((pivot.capacity()+1) * sizeof(T::value_type)) : 0;
+	max_heap = std::max(max_heap, qsort_heap + partition_heap);
 	max_sp = std::min(max_sp, stackPTR());
 
 	return &*data.begin() + i;
