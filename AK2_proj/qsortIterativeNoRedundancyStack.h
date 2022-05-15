@@ -68,7 +68,6 @@ void qsortIterativeNoRedundancyStack(std::span<T> data)
 			ranges.push(top);
 		}
 
-		max_heap = std::max(max_heap, qsort_heap);
 		max_sp = std::min(max_sp, stackPTR());
 	}
 }
