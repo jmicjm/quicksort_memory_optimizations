@@ -14,7 +14,7 @@ void qsortIterative(std::span<T> data)
 	while (ranges.size() > 0)
 	{
 		static decltype(qsort_heap) old_heap;
-		old_heap = ranges.capacity() * sizeof(T*);
+		old_heap = ranges.capacity() * sizeof(std::span<T>);
 
 
 		auto current = ranges.back();
