@@ -14,6 +14,7 @@
 
 #include "qsortIterative.h"
 #include "qsortIterativeNoRedundancy.h"
+#include "qsortIterativeNoRedundancyStack.h"
 #include "qsortRecursive.h"
 
 template<typename T>
@@ -72,11 +73,13 @@ int main()
 			sample.push_back(str);
 		}
 	}
+
 	test(data_samples, qsortRecursive<std::string, partition>, "recursive");
 	test(data_samples, qsortRecursive<std::string, inlinePartition>, "recursive,\ninline partition");
 
 	test(data_samples, qsortRecursive<std::string, partitionNoPivotCopy>, "recursive,\nno pivot copy");
 	test(data_samples, qsortRecursive<std::string, inlinePartitionNoPivotCopy>, "recursive,\ninline partition,\nno pivot copy");
+
 
 	test(data_samples, qsortIterative<std::string, partition>, "iterative");
 	test(data_samples, qsortIterative<std::string, inlinePartition>, "iterative,\ninline partition");
@@ -84,11 +87,19 @@ int main()
 	test(data_samples, qsortIterative<std::string, partitionNoPivotCopy>, "iterative,\nno pivot copy");
 	test(data_samples, qsortIterative<std::string, inlinePartitionNoPivotCopy>, "iterative,\ninline partition,\nno pivot copy");
 
+
 	test(data_samples, qsortIterativeNoRedundancy<std::string, partition>, "iterative no redundancy");
 	test(data_samples, qsortIterativeNoRedundancy<std::string, inlinePartition>, "iterative no redundancy,\ninline partition");
 
 	test(data_samples, qsortIterativeNoRedundancy<std::string, partitionNoPivotCopy>, "iterative no redundancy,\nno pivot copy");
 	test(data_samples, qsortIterativeNoRedundancy<std::string, inlinePartitionNoPivotCopy>, "iterative no redundancy,\ninline partition,\nno pivot copy");
+
+
+	test(data_samples, qsortIterativeNoRedundancyStack<std::string, partition>, "iterative no redundancy stack");
+	test(data_samples, qsortIterativeNoRedundancyStack<std::string, inlinePartition>, "iterative no redundancy stack,\ninline partition");
+
+	test(data_samples, qsortIterativeNoRedundancyStack<std::string, partitionNoPivotCopy>, "iterative no redundancy stack,\nno pivot copy");
+	test(data_samples, qsortIterativeNoRedundancyStack<std::string, inlinePartitionNoPivotCopy>, "iterative no redundancy stack,\ninline partition,\nno pivot copy");
 
 	return 0;
 }

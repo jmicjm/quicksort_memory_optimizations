@@ -151,6 +151,7 @@
     <ClInclude Include="partitionNoPivotCopy.h" />
     <ClInclude Include="qsortIterative.h" />
     <ClInclude Include="qsortIterativeNoRedundancy.h" />
+    <ClInclude Include="qsortIterativeNoRedundancyStack.h" />
     <ClInclude Include="qsortRecursive.h" />
   </ItemGroup>
   <ItemGroup>
