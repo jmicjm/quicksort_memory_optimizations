@@ -16,7 +16,7 @@ class Stack
 
 public:
 	__forceinline Stack()
-		: m_data(static_cast<T*>(_alloca(step_size * sizeof(T)))),
+		: m_data(static_cast<T*>(_alloca(step_size * sizeof(T))) + step_size - 1),
 		  m_size(0),
 		  m_capacity(step_size) {}
 	__forceinline auto push(T value)
