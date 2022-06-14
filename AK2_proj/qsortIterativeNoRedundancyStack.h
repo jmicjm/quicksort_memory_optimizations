@@ -33,11 +33,11 @@ public:
 	{
 		m_size--;
 	};
-	__forceinline auto top()
+	__forceinline auto& top()
 	{
 		return m_data[-(m_size - 1)];
 	};
-	__forceinline auto size()
+	__forceinline auto size() const
 	{
 		return m_size;
 	}
