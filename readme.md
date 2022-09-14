@@ -1,0 +1,1 @@
+You can find description of each optimization and results of benchmark in this [file](quicksort_memory_optimizations.pdf)
